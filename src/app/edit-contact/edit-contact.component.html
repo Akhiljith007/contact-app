@@ -1,0 +1,147 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <!-- page title -->
+            <h1> <i class="fa-sharp fa-solid fa-pen-user"></i> update contacts Page </h1>
+
+            <!-- content -->
+            <p style="text-align: justify;">This is dummy content
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magnam incidunt culpa eaque esse nulla vero a
+                quas sit. Quidem iure harum, sit eveniet praesentium doloribus inventore distinctio repellat? Est,
+                reiciendis. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta, atque. Atque
+                exercitationem ducimus pariatur. Vel magni illo sit corporis porro modi dolorem. Praesentium temporibus
+                quae tempore consequatur illo debitis quam?
+            </p>
+
+
+        </div>
+    </div>
+
+
+</div>
+
+<!-- edit contact design -->
+
+<div class="container-fluid">
+
+    <div class="row border rounded p-5">
+<!-- edit contact form -->
+        <div class="col-8  border p-3">
+            <!-- ngForm angular inte oru directive aanu itu use cheithu aa form valid aano athupole athinte value access cheiyanokke pattum -->
+            <form #editContactForm="ngForm" action="">
+
+                <!-- required ennu form inte inputil kodukkunne avide value required aanu athukonde angne koduthitte thazhe value type cheithille kaanikanulla div vechittu kaarayamullu pinne template referance variable use cheiyunne athu use cheithale a ainputil ulla data um fetch cheiyan pattu like id using in javascript athil id kodukumpo id ennu specific aayittu kaanknda aavsiahmilla direct edukkan access cheiyan pattumarunnu -->
+                <div class="mb-2"> <input name="id" #id="ngModel" [(ngModel)]="contact.id" placeholder="contact Id"
+                        type="text" class="form-control" required></div>
+
+                <!-- Id validation -->
+                <div *ngIf="id.invalid&&id.touched" class="mb-2 text-danger">please enter a valid ID</div>
+
+                <!-- name -->
+                <div class="mb-2"> <input name="name" #name="ngModel" [(ngModel)]="contact.name"
+                        placeholder="contact name" type="text" class="form-control" pattern="[a-zA-Z]*" required>
+                </div>
+
+                <!-- name validation -->
+
+                <div *ngIf="name.invalid&&name.touched" class="mb-2 text-danger">please enter valid contact name</div>
+
+                <!-- photo -->
+
+                <div class="mb-2"> <input name="photo" #photo="ngModel" [(ngModel)]="contact.photo"
+                        placeholder="contact image" type="text" class="form-control" required></div>
+
+                <!-- photo validation -->
+                <div *ngIf="photo.invalid&&photo.touched" class="mb-2 text-danger">please enter valid photo URL</div>
+
+                <!-- mobile number -->
+                <div class="mb-2"> <input #mobile="ngModel" name="mobile" [(ngModel)]="contact.mobile"
+                        placeholder="contact mobile number" type="text" class="form-control" minlength="10"
+                        maxlength="10" pattern="[0-9]*" required></div>
+
+                <!-- mobile validation -->
+                <div *ngIf="mobile.invalid&&mobile.touched" class="mb-2 text-danger">please enter valid mobile number
+                </div>
+
+                <!-- Email -->
+                <div class="mb-2"> <input #email="ngModel" name="email" [(ngModel)]="contact.email"
+                        placeholder="contact Emial Id" type="text" class="form-control" required email></div>
+
+                <!-- email validation -->
+                <div *ngIf="email.invalid&&email.touched" class="mb-2 text-danger">please enter valid Email</div>
+
+
+                <!-- company -->
+
+                <div class="mb-2">
+                    <input name="company" #company="ngModel" [(ngModel)]="contact.company"
+                        placeholder="contact Company Name" type="text" class="form-control" required>
+                </div>
+                <!-- company validation -->
+                <div *ngIf="company.invalid&&company.touched" class="mb-2 text-danger">please enter valid company name
+                </div>
+
+
+
+                <div class="mb-2">
+                    <input name="title" #title="ngModel" [(ngModel)]="contact.title" placeholder="Contact Title"
+                        type="text" class="form-control" required>
+
+                </div>
+
+                <!-- title validation -->
+                <div *ngIf="title.invalid&&title.touched" class="mb-2 text-danger">please enter valid contact
+                    designation
+                </div>
+
+                <div class="mb-2">
+                    <!-- ivide slecet avide ng model  vekkan kaaranam thazthe kodukunna options inte value selectil aanu vrunne so aa select il ulla value two way binding use cheithe nerathe create cheitha contactSchema enna common aayitu ulla classileku aanu connevt aakunne so avide ulla oru variable aanu contact athil ninnu groupId  kittum athilekku aanu thazhe optionil ninnu kittunna vlaue eduthu vekkum pinne aa select il veche saanam thazhe cardil string interpolation use cheithe avide vruthe -->
+                    <select name="groupId" #groupId="ngModel" [(ngModel)]="contact.groupId" class="form-control" required pattern="[0-9]*">
+                        <option disabled selected hidden>Choose A Group</option>
+                        
+                        <option [value]="group.id" *ngFor="let group of groups">{{group.name}}</option>
+
+                    </select>
+
+                </div>
+                <!-- groupId validation -->
+                <div *ngIf="groupId.invalid&&groupId.touched" class="mb-2 text-danger">please enter valid group
+                </div>
+
+                <div class="d-flex end">
+                    <a routerLink="" class="btn btn-danger">close</a>
+
+                    <!-- editContactForm ennullathe ngform il ninnu aanu angular inte oru directive aanu aa formil ulla values um athupole aa formvalid aano okke ennu check cheiyan pattum ee property veche athanu buttonil konde veche aa formil ulla valid aayenkill aa button work aakavu athinu vendi -->
+                   
+                    <button (click)="editcontact(contact.id)"   class="btn btn-success ms-2">update</button>
+
+<!-- clickil koduthekunne argument contact ennu prnjekkunne kaarnam ee formil contactil aanu ee formile values okke vrunne athane argument aayittu contact koduthe -->
+
+                </div>
+
+
+
+            </form>
+
+        </div>
+
+        <!-- contact card -->
+        <div class="col-lg-4 d-flex justify-content-center">
+            <div  class="card align-items-center " style="width: 18rem;">
+                <img [src]="contact.photo" width="30px" height="100px" class="card-img-top" alt="user img">
+                <div class="card-body">
+                    <h5 class="card-title">contact name</h5>
+
+                    <p>contact id: {{contact.id}}</p>
+                    <p>mobile:{{contact.mobile}}</p>
+                    <p>email:{{contact.email}}</p>
+                    <p>company:{{contact.company}}</p>
+                    <p>title:{{contact.title}}</p>
+                    <p>group:{{contact.groupId}}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
